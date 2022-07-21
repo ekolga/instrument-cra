@@ -1,6 +1,6 @@
 {
   "name": "@mastuff77/instrument-cra",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Little module for CRA applications to instrument code without ejecting react-scripts",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,8 @@
     "url": "https://github.com/ekolga/instrument-cra.git"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "src/utils"
   ],
   "keywords": [
     "cra",
