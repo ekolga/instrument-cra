@@ -1,6 +1,6 @@
 {
   "name": "@mastuff77/instrument-cra",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Little module for CRA applications to instrument code without ejecting react-scripts",
   "main": "index.js",
   "scripts": {
