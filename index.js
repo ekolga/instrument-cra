@@ -1,10 +1,11 @@
 const debug = require('debug')('instrument-cra')
 const path = require('path')
 const findYarnWorkspaceRoot = require('find-yarn-workspace-root')
-const findPnpmWorkspaceRoot = require('@pnpm/find-workspace-dir')
-const getPnpmPackagePath = require('./src/utils/pnpm')
+const { getPnpmPackagePath, checkIfItIsPnpm } = require('./src/utils/pnpm')
 
-const workspaceRoot = findYarnWorkspaceRoot() || findPnpmWorkspaceRoot() || process.cwd()
+let isPnpm = checkIfItIsPnpm(__dirname)
+let workspaceRoot = findYarnWorkspaceRoot() || __dirname || process.cwd()
+workspaceRoot = (isPnpm) ? workspaceRoot : process.cwd()
 const packagePath = path.resolve(workspaceRoot, 'package.json')
 
 let cypressWebpackConfigPath
@@ -35,7 +36,7 @@ if (cypressWebpackConfigPath) {
     workspaceRoot,
     path.normalize(cypressWebpackConfigPath)
   )
-} else if (findPnpmWorkspaceRoot()) {
+} else if (isPnpm) {
   webpackConfigPath = getPnpmPackagePath(webpackConfigPathEnding)
 } else {
   webpackConfigPath = path.resolve(
