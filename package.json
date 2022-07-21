@@ -1,6 +1,6 @@
 {
-  "name": "@cypress/instrument-cra",
-  "version": "0.0.0-development",
+  "name": "@mastuff77/instrument-cra",
+  "version": "1.0.0",
   "description": "Little module for CRA applications to instrument code without ejecting react-scripts",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cypress-io/instrument-cra.git"
+    "url": "https://github.com/ekolga/instrument-cra.git"
   },
   "files": [
     "index.js"
@@ -31,8 +31,10 @@
   },
   "homepage": "https://github.com/cypress-io/instrument-cra#readme",
   "dependencies": {
+    "@pnpm/find-workspace-dir": "^4.0.2",
     "babel-plugin-istanbul": "6.0.0",
     "debug": "4.2.0",
+    "escape-string-regexp": "^5.0.0",
     "find-yarn-workspace-root": "^2.0.0"
   },
   "devDependencies": {

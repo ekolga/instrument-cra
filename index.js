@@ -1,8 +1,10 @@
 const debug = require('debug')('instrument-cra')
 const path = require('path')
 const findYarnWorkspaceRoot = require('find-yarn-workspace-root')
+const findPnpmWorkspaceRoot = require('@pnpm/find-workspace-dir')
+const getPnpmPackagePath = require('./src/utils/pnpm')
 
-const workspaceRoot = findYarnWorkspaceRoot() || process.cwd()
+const workspaceRoot = findYarnWorkspaceRoot() || findPnpmWorkspaceRoot() || process.cwd()
 const packagePath = path.resolve(workspaceRoot, 'package.json')
 
 let cypressWebpackConfigPath
@@ -18,19 +20,29 @@ try {
 debug('finding webpack config %o', {
   workspaceRoot, cypressWebpackConfigPath
 })
-const webpackConfigPath =
-  cypressWebpackConfigPath
-    ? path.resolve(
-        workspaceRoot,
-        path.normalize(cypressWebpackConfigPath)
-      )
-    : path.resolve(
-        workspaceRoot,
-        'node_modules',
-        'react-scripts',
-        'config',
-        'webpack.config.js'
-      )
+
+const webpackConfigPathEnding = path.resolve(
+  'node_modules',
+  'react-scripts',
+  'config',
+  'webpack.config.js'
+)
+
+let webpackConfigPath
+
+if (cypressWebpackConfigPath) {
+  webpackConfigPath = path.resolve(
+    workspaceRoot,
+    path.normalize(cypressWebpackConfigPath)
+  )
+} else if (findPnpmWorkspaceRoot()) {
+  webpackConfigPath = getPnpmPackagePath(webpackConfigPathEnding)
+} else {
+  webpackConfigPath = path.resolve(
+    workspaceRoot,
+    webpackConfigPathEnding
+  )
+}
 
 debug('path to react-scripts own webpack.config.js: %s', webpackConfigPath)
 
