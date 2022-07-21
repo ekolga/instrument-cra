@@ -20,5 +20,5 @@ function checkIfItIsPnpm(currentWorkdir) {
     return regexp.test(currentWorkdir)
 }
 
-module.exports.getPnpmPackagePath = getPnpmPackagePath
-module.exports.checkIfItIsPnpm = checkIfItIsPnpm
+exports.getPnpmPackagePath = getPnpmPackagePath
+exports.checkIfItIsPnpm = checkIfItIsPnpm
