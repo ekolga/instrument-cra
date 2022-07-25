@@ -1,6 +1,6 @@
 {
   "name": "@mastuff77/instrument-cra",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Little module for CRA applications to instrument code without ejecting react-scripts",
   "main": "index.js",
   "scripts": {
@@ -32,6 +32,7 @@
   },
   "homepage": "https://github.com/cypress-io/instrument-cra#readme",
   "dependencies": {
+    "app-root-path": "^3.0.0",
     "babel-plugin-istanbul": "6.0.0",
     "debug": "4.2.0",
     "escape-string-regexp": "~4.0.0",

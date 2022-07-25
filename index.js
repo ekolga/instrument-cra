@@ -1,56 +1,32 @@
 const debug = require('debug')('instrument-cra')
 const path = require('path')
-const findYarnWorkspaceRoot = require('find-yarn-workspace-root')
+const appRoot = require('app-root-path').path;
 const pnpmHelper = require('./src/utils/pnpm')
 
-let isPnpm = pnpmHelper.checkIfItIsPnpm(__dirname)
-let workspaceRoot = findYarnWorkspaceRoot() || __dirname || process.cwd()
-workspaceRoot = (isPnpm) ? workspaceRoot : process.cwd()
-const packagePath = path.resolve(workspaceRoot, 'package.json')
-
-let cypressWebpackConfigPath
-try {
-  const package = require(packagePath)
-  if (package.cypressWebpackConfigPath) {
-    cypressWebpackConfigPath = package.cypressWebpackConfigPath
-  }
-} catch {
-  debug('failed to read package.json at path: %s', packagePath)
-}
-
-debug('finding webpack config %o', {
-  workspaceRoot, cypressWebpackConfigPath
-})
-
-const webpackConfigPathEnding = path.resolve(
+const webpackConfigPathStart = path.join(
+  appRoot,
+  'common',
+  'temp',
+  'node_modules',
+  '.pnpm'
+)
+const webpackConfigPathEnding = path.join(
   'node_modules',
   'react-scripts',
   'config',
   'webpack.config.js'
 )
 
-let webpackConfigPath
-
-if (cypressWebpackConfigPath) {
-  webpackConfigPath = path.resolve(
-    workspaceRoot,
-    path.normalize(cypressWebpackConfigPath)
-  )
-} else if (isPnpm) {
-  webpackConfigPath = pnpmHelper.getPnpmPackagePath(webpackConfigPathEnding)
-} else {
-  webpackConfigPath = path.resolve(
-    workspaceRoot,
-    webpackConfigPathEnding
-  )
-}
-
-debug('path to react-scripts own webpack.config.js: %s', webpackConfigPath)
+// let reactPackageName = pnpmHelper.getReactPackageName(pnpmLockfileLocation)
+// console.log('reactPackageName - ' + reactPackageName)
+let reactPackageName = process.env.REACT_VERSION || 'react-scripts@3.4.1_sass@1.32.13+typescript@3.9.10'
+let webpackConfigPath = path.join(webpackConfigPathStart, reactPackageName, webpackConfigPathEnding)
 
 // Do this as the first thing so that any code reading it knows the right env.
 process.env.BABEL_ENV = 'development'
 process.env.NODE_ENV = 'development'
 
+console.log('webpackConfigPath - ' + webpackConfigPath)
 const webpackFactory = require(webpackConfigPath)
 
 function fakeConfig(envName) {
