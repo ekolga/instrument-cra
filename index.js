@@ -1,12 +1,9 @@
 const debug = require('debug')('instrument-cra')
 const path = require('path')
 const appRoot = require('app-root-path').path;
-const pnpmHelper = require('./src/utils/pnpm')
 
 const webpackConfigPathStart = path.join(
   appRoot,
-  'common',
-  'temp',
   'node_modules',
   '.pnpm'
 )
@@ -17,10 +14,8 @@ const webpackConfigPathEnding = path.join(
   'webpack.config.js'
 )
 
-// let reactPackageName = pnpmHelper.getReactPackageName(pnpmLockfileLocation)
-// console.log('reactPackageName - ' + reactPackageName)
-let reactPackageName = process.env.REACT_VERSION || 'react-scripts@3.4.1_sass@1.32.13+typescript@3.9.10'
-let webpackConfigPath = path.join(webpackConfigPathStart, reactPackageName, webpackConfigPathEnding)
+let reactScriptsPackageName = process.env.SCRIPTS_VERSION
+let webpackConfigPath = path.join(webpackConfigPathStart, reactScriptsPackageName, webpackConfigPathEnding)
 
 // Do this as the first thing so that any code reading it knows the right env.
 process.env.BABEL_ENV = 'development'

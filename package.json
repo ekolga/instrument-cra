@@ -1,23 +1,17 @@
 {
   "name": "@mastuff77/instrument-cra",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Little module for CRA applications to instrument code without ejecting react-scripts",
   "main": "index.js",
   "scripts": {
-    "test": "cypress run",
-    "start": "react-scripts -r . start",
-    "cy:open": "cypress open",
-    "dev": "start-test 3000 cy:open",
-    "e2e": "start-test 3000",
-    "semantic-release": "semantic-release"
+    "test": "echo 'no tests'"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/ekolga/instrument-cra.git"
   },
   "files": [
-    "index.js",
-    "src/utils"
+    "index.js"
   ],
   "keywords": [
     "cra",
@@ -34,20 +28,7 @@
   "dependencies": {
     "app-root-path": "^3.0.0",
     "babel-plugin-istanbul": "6.0.0",
-    "debug": "4.2.0",
-    "escape-string-regexp": "~4.0.0",
-    "find-yarn-workspace-root": "^2.0.0"
-  },
-  "devDependencies": {
-    "@cypress/code-coverage": "3.4.2",
-    "check-code-coverage": "1.10.0",
-    "cypress": "6.5.0",
-    "prettier": "2.1.2",
-    "react": "17.0.1",
-    "react-dom": "17.0.1",
-    "react-scripts": "3.3.1",
-    "semantic-release": "17.2.1",
-    "start-server-and-test": "1.11.5"
+    "debug": "4.2.0"
   },
   "eslintConfig": {
     "extends": "react-app"

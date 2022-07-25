@@ -1,10 +1,11 @@
-# @cypress/instrument-cra [![renovate-app badge][renovate-badge]][renovate-app] [![CircleCI](https://circleci.com/gh/cypress-io/instrument-cra/tree/master.svg?style=svg&circle-token=50a3c2621735780756a505094eadb3cdca1699f2)](https://circleci.com/gh/cypress-io/instrument-cra/tree/master)
+Modernized copy of @cypress/instrument-cra
+
 > Little module for CRA applications to instrument code without ejecting react-scripts
 
 ## Install and use
 
 ```
-yarn add @cypress/instrument-cra
+rush add -p @veson/instrument-cra --dev
 ```
 
 Then change your `npm start` script to require this module before starting the dev server
@@ -12,10 +13,13 @@ Then change your `npm start` script to require this module before starting the d
 ```json
 {
   "scripts": {
-    "start": "react-scripts -r @cypress/instrument-cra start",
+    "start": "SCRIPTS_VERSION=react-scripts@3.4.1_sass@1.32.13+typescript@3.9.10 react-scripts -r @veson/instrument-cra start",
   }
 }
 ```
+
+The SCRIPTS_VERSION enrionment variable is crucial for this module. Every time it updates - you should update the variable too.
+You can find the actual version in the `VIP/common/config/rush/pnpm-lock.yaml` file, simply searching for "/react-scripts/
 
 This module assumes standard [Create-React-App v3](https://github.com/facebook/create-react-app) JavaScript application with source files in the "src" folder.
 
